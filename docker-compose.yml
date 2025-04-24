@@ -1,0 +1,61 @@
+services:
+  php:
+    build: ./docker/
+    container_name: php_smt4
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - semester_4
+    command: php-fpm
+  
+  nginx:
+    image: nginx
+    container_name: nginx_smt4
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 8000:80
+    depends_on:
+      - php
+    networks:
+      - semester_4
+  
+  mariadb:
+    image: mariadb:lts
+    container_name: mariadb_smt4
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: semester_4
+      MARIADB_USER: project
+      MARIADB_PASSWORD: password
+    ports:
+      - 3308:3306
+    volumes:
+      - ./docker/database/sql:/var/lib/mysql
+    networks:
+      - semester_4
+  
+  adminer:
+    container_name: adminer_smt4
+    image: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - semester_4
+  
+  node:
+    image: node:lts
+    container_name: node_smt4
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - 5173:5173
+    networks:
+      - semester_4
+
+networks:
+  semester_4:
