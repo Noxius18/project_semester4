@@ -62,11 +62,13 @@ docker exec -it <nama-service> bash
 # 🔧 Konfigurasi Utama
 ## 🔐 Database Credentials
 **Adminer Interface:** http://localhost:8080
-> System:    MySQL/MariaDB
+```md
+System:    MySQL/MariaDB
 Server:    mariadb
 Username:  project
 Password:  password
 Database:  semester_4
+```
 
 ## 🌐 URL Aplikasi
 **Laravel Backend:** http://localhost:8000
