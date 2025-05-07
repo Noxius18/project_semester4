@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('jadwal', function (Blueprint $table) {
             $table->string('jadwal_id', 14)->primary();
-            $table->enum('hari', ['Senin','
-                                                    Selasa', 
+            $table->enum('hari', ['Senin',
+                                                    'Selasa', 
                                                     'Rabu', 
                                                     'Kamis', 
                                                     'Jumat',
                                                     'Sabtu',
                                                     'Minggu']);
-            $table->string('Lokasi', 50);
+            $table->string('lokasi', 50);
             $table->date('tanggal');
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
