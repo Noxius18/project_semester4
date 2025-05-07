@@ -21,10 +21,10 @@ return new class extends Migration
                                                     'Sabtu',
                                                     'Minggu']);
             $table->string('lokasi', 50);
-            $table->date('tanggal');
+            $table->date('tanggal')->nullable();
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
-            $table->string('tim_lawan', 50);
+            $table->string('tim_lawan', 50)->nullable();
             $table->enum('status', ['Buka', 'Tutup']);
         });
     }
