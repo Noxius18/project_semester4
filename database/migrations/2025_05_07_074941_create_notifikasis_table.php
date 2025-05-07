@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('notifikasi', function (Blueprint $table) {
+            $table->string('notif_id', 6)->primary();
+            $table->string('pesan', 75);
+            $table->enum('status_notif', ['Dibaca', 'Sudah Dibaca']);
+            $table->string('jadwal_id', 14);
+            
+            // Foreign Key
+            $table->foreign('jadwal_id')->references('jadwal_id')->on('jadwal');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('notifikasis');
+    }
+};
