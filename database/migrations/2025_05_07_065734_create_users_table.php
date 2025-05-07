@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password',60);
             $table->enum('jenis_kelamin', ['L','P'])->default('L');
             $table->char('role_id', 3);
-            $table->timestamps();
+            
 
             // Foreign Key
             $table->foreign('role_id')->references('role_id')->on('roles');
