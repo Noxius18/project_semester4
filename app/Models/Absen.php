@@ -9,7 +9,7 @@ class Absen extends Model
     protected $table = "absen";
     protected $primaryKey = "absen_id";
     protected $keyType = "string";
-    public $timestamp = false;
+    public $timestamps = false;
     protected $fillable = [
         "absen_id",
         "status",

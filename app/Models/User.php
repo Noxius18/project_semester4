@@ -12,7 +12,7 @@ class User extends Model
     protected $table = "user";
     protected $primaryKey = "user_id";
     protected $keyType = "string";
-    public $timestamp = false;
+    public $timestamps = false;
 
     protected $fillable = [
         "user_id",
