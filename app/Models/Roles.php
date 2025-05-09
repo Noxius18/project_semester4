@@ -9,8 +9,8 @@ class Roles extends Model
 {
     protected $table = "roles";
     protected $primaryKey = "role_id";
-    protected $keyType = "char";
-    public $timestamp = false;
+    protected $keyType = "string";
+    public $timestamps = false;
     protected $fillable = [ "role" ];
 
     public function users() {

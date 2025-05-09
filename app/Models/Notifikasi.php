@@ -10,7 +10,7 @@ class Notifikasi extends Model
     protected $table = "notifikasi";
     protected $primaryKey = "notif_id";
     protected $keyType = "string";
-    public $timestamp = false;
+    public $timestamps = false;
     protected $fillable = [
         "notif_id",
         "pesan",
