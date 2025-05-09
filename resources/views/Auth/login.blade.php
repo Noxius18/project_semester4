@@ -31,7 +31,7 @@
                                     <label for="username" class="visually-hidden">Username</label>
                                     <div class="input-icon-wrapper">
                                         <i class="fas fa-user input-icon"></i>
-                                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="JUNED" value="{{ old('username') }}" autocomplete="off">
+                                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" value="{{ old('username') }}" autocomplete="off">
                                     </div>
                                     @error('username')
                                         <span class="text-danger small">{{ $message }}</span>
@@ -42,7 +42,7 @@
                                     <label for="password" class="visually-hidden">Password</label>
                                     <div class="input-icon-wrapper">
                                         <i class="fas fa-lock input-icon"></i>
-                                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="PASSWORD" autocomplete="off">
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" autocomplete="off">
                                     </div>
                                     @error('password')
                                         <span class="text-danger small">{{ $message }}</span>
