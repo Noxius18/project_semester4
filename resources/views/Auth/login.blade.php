@@ -18,12 +18,12 @@
                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
                         <!-- Academy Logo -->
                         <div class="academy-logo-container me-md-5">
-                            <img src='gambar/assets/Logo_Deperlas_Main.png' class="academy-logo" alt="Deperlas Futsal shield logo">
+                            <img src="{{  asset('gambar/assets/Logo_Deperlas_Main.png') }}" class="academy-logo" alt="Deperlas Futsal shield logo">
                         </div>
                         
                         <!-- Login Form -->
                         <div class="mt-4 mt-md-0">
-                            <form class="login-form" method="POST" action="#">
+                            <form class="login-form" method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <h2 class="login-title">LOGIN</h2>
                                 
