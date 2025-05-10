@@ -44,16 +44,9 @@
                             <i class="fas fa-bars"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-alt me-3"></i>Jadwal</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-trophy me-3"></i>Kompetisi</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-users me-3"></i>List User</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-right-to-bracket me-3"></i>Masuk</a></li>
                         </ul>
                     </div>
-
-                    <!-- Home Icon -->
-                    <a class="nav-icon" href="#" style="padding: 0.8rem 1.2rem;">
-                        <i class="fas fa-home"></i>
-                    </a>
                 </div>
             </div>
         </div>

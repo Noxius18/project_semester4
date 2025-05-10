@@ -3,8 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
+// Testing Route
+Route::get('/test', function () {
+    return view('layouts.app');
+});
+
 Route::get('/', function () {
-    return redirect()->route('auth.login');
+    return view('home');
 });
 
 // Login End-point
@@ -14,7 +19,5 @@ Route::post('/logout', [AuthController::class,'logout'])->name('auth.logout');
 
 // Middleware Login admin end-point
 Route::middleware(['auth', 'role:Admin'])->group(function () {
-    Route::get('/dashboard', function() {
-        return view('dashboard');
-    });
+    
 });
