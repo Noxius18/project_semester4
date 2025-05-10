@@ -1,4 +1,4 @@
-/* ===== Base Styles ===== */
+/* === Global Styles === */
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #ffffff;
@@ -6,70 +6,63 @@ body {
     margin: 0;
 }
 
-/* ===== Font Definitions ===== */
-.font-deperlas {
-    font-family: 'Roboto Slab', serif;
-}
-
-/* ===== Navbar/Header ===== */
+/* === Navbar === */
 .navbar-custom {
     background-color: #1a2461;
-    padding: 0.5rem 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    min-height: 120px;
-    display: flex;
-    align-items: center;
-    border-bottom-color: #ffffff;
-}
-
-.container-xl {
-    padding-left: 0px;
+    padding: 0.5rem 0 0.5rem 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    min-height: 96px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1001;
+    border-bottom: #fff solid 1px;
 }
 
 .header-logo {
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    align-items: left;
+    gap: 1rem;
 }
 
 .academy-logo {
-    width: 120px;
-    height: 100px;
+    width: 60px;
+    height: auto;
     object-fit: contain;
-    transition: all 0.3s ease;
+    margin-left: 1rem;
 }
 
 .academy-titles {
     line-height: 1.2;
     padding-left: 1rem;
-    border-left: 2px solid rgba(255, 255, 255, 0.2);
+    border-left: 2px solid rgba(255,255,255,0.2);
 }
 
 .academy-name {
     font-size: 24px;
     color: white;
-    letter-spacing: 0.8px;
     margin: 0;
 }
 
 .academy-tagline {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255,255,255,0.9);
     font-weight: 500;
     letter-spacing: 1.5px;
-    margin: 3px 0 0 0;
+    margin-top: 3px;
 }
 
-/* ===== Sidebar ===== */
+/* === Sidebar === */
 .sidebar {
-    width: 250px;
-    background-color: #1a2461;
     position: fixed;
+    top: 96px;
     left: 0;
-    top: 120px; /* Sesuaikan dengan tinggi navbar */
-    bottom: 0;
+    width: 250px;
+    height: calc(100vh - 96px);
+    background-color: #1a2461;
     padding: 2rem 1.5rem;
     z-index: 999;
+    overflow-y: auto;
 }
 
 .sidebar-menu {
@@ -79,7 +72,7 @@ body {
 }
 
 .menu-item {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .menu-link {
@@ -95,13 +88,37 @@ body {
 }
 
 .menu-link:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255,255,255,0.15);
 }
 
-/* ===== Main Content ===== */
+.dropdown-menu-collapsible {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+    padding-left: 1.5rem;
+}
+
+.menu-item.open .dropdown-menu-collapsible {
+    max-height: 500px;
+}
+
+.dropdown-item {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.4rem 0;
+    display: block;
+}
+
+.dropdown-item:hover {
+    color: #ffc107;
+}
+
+/* === Main Content === */
 .main-content {
     margin-left: 250px;
-    margin-top: 10px;
+    margin-top: 96px;
     padding: 2rem;
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 96px);
+    background-color: #fff;
 }
