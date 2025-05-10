@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Roles;
 use App\Models\Jadwal;
 use App\Models\Absen;
-class User extends Model
+class User extends Authenticatable
 {
     protected $table = "user";
     protected $primaryKey = "user_id";
