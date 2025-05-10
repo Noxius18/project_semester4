@@ -26,8 +26,7 @@
 
         <!-- Kanan: Selamat datang dan Logout -->
         <div class="d-flex align-items-center gap-3">
-            <span class="text-white fw-semibold">Selamat datang, {{ Auth::user()->nama }}</span>
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{ route('auth.logout') }}">
                 @csrf
                 <button type="submit" class="btn btn-outline-light btn-sm">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -68,8 +67,8 @@
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
                     <ul class="dropdown-menu-collapsible">
-                        <li><a href="{{ route('user.pelatih') }}" class="dropdown-item">Pelatih</a></li>
-                        <li><a href="{{ route('user.pemain') }}" class="dropdown-item">Pemain</a></li>
+                        <li><a href="#" class="dropdown-item">Pelatih</a></li>
+                        <li><a href="#" class="dropdown-item">Pemain</a></li>
                     </ul>
                 </li>
             </ul>

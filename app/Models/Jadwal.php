@@ -15,6 +15,7 @@ class Jadwal extends Model
     public $timestamps = false;
     protected $fillable = [
         "jadwal_id",
+        "tipe_jadwal",
         "hari",
         "lokasi",
         "tanggal",
