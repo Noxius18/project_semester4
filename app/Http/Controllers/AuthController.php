@@ -26,7 +26,7 @@ class AuthController extends Controller
             Auth::login($user);
 
             if($user->role->role == 'Admin') {
-                return redirect()->intended('/dashboard');
+                return redirect()->intended('dashboard');
             }
 
             Auth::logout();

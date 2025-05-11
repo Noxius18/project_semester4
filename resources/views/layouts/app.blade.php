@@ -11,7 +11,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-<body>
+<body data-success="{{ session('success') }}" data-error="{{ session('error') }}">
     <!-- Navbar -->
     <nav class="navbar navbar-custom">
     <div class="container-fluid d-flex justify-content-between align-items-center px-4">
@@ -26,8 +26,7 @@
 
         <!-- Kanan: Selamat datang dan Logout -->
         <div class="d-flex align-items-center gap-3">
-            <span class="text-white fw-semibold">Selamat datang, {{ Auth::user()->nama }}</span>
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{ route('auth.logout') }}">
                 @csrf
                 <button type="submit" class="btn btn-outline-light btn-sm">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -43,21 +42,25 @@
         <nav>
             <ul class="sidebar-menu">
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('dashboard') }}" class="menu-link">
                         <i class="fas fa-home"></i> Beranda
                     </a>
                 </li>
 
+                <li class="menu-item">
+                    <a href="{{ route('jadwal.index') }}" class="menu-link">
+                        <i class="fas fa-calendar-alt"></i> Jadwal
+                    </a>
+                </li>
+
                 <!-- Jadwal Collapsible -->
-                <li class="menu-item has-dropdown">
-                    <a href="#" class="menu-link dropdown-toggle">
+                <li class="menu-item">
+                    <a href="{{ route('jadwal.index') }}" class="menu-link dropdown-toggle">
                         <i class="fas fa-calendar-alt"></i> Jadwal
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
                     <ul class="dropdown-menu-collapsible">
-                        <li><a href="{{ route('jadwal.reguler') }}" class="dropdown-item">Jadwal Reguler</a></li>
-                        <li><a href="{{ route('jadwal.pengganti') }}" class="dropdown-item">Jadwal Pengganti</a></li>
-                        <li><a href="{{ route('jadwal.pertandingan') }}" class="dropdown-item">Jadwal Pertandingan</a></li>
+                        <li><a href="{{ route('jadwal.index') }}" class="dropdown-item">List Jadwal</a></li>
                     </ul>
                 </li>
 
@@ -68,8 +71,8 @@
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
                     <ul class="dropdown-menu-collapsible">
-                        <li><a href="{{ route('user.pelatih') }}" class="dropdown-item">Pelatih</a></li>
-                        <li><a href="{{ route('user.pemain') }}" class="dropdown-item">Pemain</a></li>
+                        <li><a href="#" class="dropdown-item">Pelatih</a></li>
+                        <li><a href="#" class="dropdown-item">Pemain</a></li>
                     </ul>
                 </li>
             </ul>
@@ -84,5 +87,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @stack('script')
 </body>
 </html>
