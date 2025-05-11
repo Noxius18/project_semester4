@@ -60,9 +60,7 @@
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
                     <ul class="dropdown-menu-collapsible">
-                        <li><a href="{{ route('jadwal.reguler') }}" class="dropdown-item">Jadwal Reguler</a></li>
-                        <li><a href="{{ route('jadwal.pengganti') }}" class="dropdown-item">Jadwal Pengganti</a></li>
-                        <li><a href="{{ route('jadwal.pertandingan') }}" class="dropdown-item">Jadwal Pertandingan</a></li>
+                        <li><a href="{{ route('jadwal.index') }}" class="dropdown-item">List Jadwal</a></li>
                     </ul>
                 </li>
 

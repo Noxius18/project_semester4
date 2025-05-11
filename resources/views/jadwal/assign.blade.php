@@ -21,7 +21,7 @@
         <div class="mb-3">
             <label class="form-label fw-semibold">Pilih Pelatih (maksimal 2):</label>
             <div class="row">
-                @foreach ($pelatihList as $pelatih)
+                @foreach ($listPelatih as $pelatih)
                 <div class="col-md-6 mb-2">
                     <div class="form-check">
                         <input 
@@ -69,4 +69,3 @@
         });
     });
 </script>
-@endsection

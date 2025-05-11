@@ -57,6 +57,9 @@
                     <td>{{ $jadwal->tim_lawan ?? '-' }}</td>
                     <td>
                         <div class="d-flex justify-content-center gap-2">
+                            <a href="{{ route('jadwal.assign', $jadwal->jadwal_id) }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-user-plus"></i> Atur Pelatih
+                            </a>
                             <a href="{{ route('jadwal.edit', $jadwal->jadwal_id) }}" class="btn btn-sm btn-outline-warning">
                                 <i class="fas fa-edit"></i>
                             </a>

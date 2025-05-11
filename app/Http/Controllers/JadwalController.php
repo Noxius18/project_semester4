@@ -145,8 +145,20 @@ class JadwalController extends Controller
             $q->where('role', 'Pelatih');
         })->get();
 
-        $assignedId = $jadwal->pelatih()->pluck('user_id')->toArray();
+        $assignedIds = $jadwal->pelatih()->pluck('user_id')->toArray();
 
-        return view('jadwal.assign', compact('jadwal', 'listPelatih', 'assignedId'));
+        return view('jadwal.assign', compact('jadwal', 'listPelatih', 'assignedIds'));
+    }
+
+    public function storeAssign(Request $request, $id) {
+        $request->validate([
+            'pelatih_id' => 'required|array|max:2',
+            'pelatih_id.*' => 'exists:user,user_id'
+        ]);
+
+        $jadwal = Jadwal::findOrFail( $id );
+        $jadwal->pelatih()->sync($request->pelatih_id);
+
+        return redirect()->route('jadwal.index')->with('success','Pelatih berhasil ditambah ke jadwal!');
     }
 }

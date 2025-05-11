@@ -30,9 +30,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
     
     // Route Jadwal
-    Route::get('/jadwal/reguler', [JadwalController::class,'indexReguler'])->name('jadwal.reguler');
-    Route::get('/jadwal/pengganti', [JadwalController::class,'indexPengganti'])->name('jadwal.pengganti');
-    Route::get('/jadwal/pertandingan', [JadwalController::class,'indexPertandingan'])->name('jadwal.pertandingan');
+    Route::get('/jadwal/{jadwal}/assign', [JadwalController::class,'assign'])->name('jadwal.assign');
+    Route::post('/jadwal/{jadwal}/assign', [JadwalController::class,'storeAssign'])->name('jadwal.assign.store');
 
     Route::resource('jadwal', JadwalController::class);
 });
