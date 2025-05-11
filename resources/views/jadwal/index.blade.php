@@ -39,6 +39,7 @@
                     <th>Waktu</th>
                     <th>Lokasi</th>
                     <th>Tim Lawan</th>
+                    <th>Pelatih</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -56,7 +57,21 @@
                     <td>{{ $jadwal->lokasi }}</td>
                     <td>{{ $jadwal->tim_lawan ?? '-' }}</td>
                     <td>
+                        @if ($jadwal->pelatih->isEmpty())
+                            <span class="text-muted">Belum diatur</span>
+                        @else
+                            <ul class="mb-0 ps-3">
+                                @foreach ($jadwal->pelatih as $p)
+                                    <li>{{ $p->nama }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </td>
+                    <td>
                         <div class="d-flex justify-content-center gap-2">
+                            <a href="{{ route('jadwal.assign', $jadwal->jadwal_id) }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-user-plus"></i> Atur Pelatih
+                            </a>
                             <a href="{{ route('jadwal.edit', $jadwal->jadwal_id) }}" class="btn btn-sm btn-outline-warning">
                                 <i class="fas fa-edit"></i>
                             </a>

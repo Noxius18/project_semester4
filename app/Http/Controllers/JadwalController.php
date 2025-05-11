@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use App\Models\Jadwal;
+use App\Models\User;
 
 class JadwalController extends Controller
 {
@@ -16,9 +17,14 @@ class JadwalController extends Controller
     {
         $filter = $request->query('tipe_jadwal');
         
-        $jadwals = Jadwal::when($filter, function($query, $filter) {
-            return $query->where('tipe_jadwal', $filter);
-        })->orderBy('tanggal', 'desc')->get();
+        $jadwals = Jadwal::with('pelatih')
+            ->when($filter, fn($q) => $q->where('tipe_jadwal', $filter))
+            ->orderBy('tanggal', 'desc')
+            ->get();
+        
+        // $jadwals = Jadwal::when($filter, function($query, $filter) {
+        //     return $query->where('tipe_jadwal', $filter);
+        // })->orderBy('tanggal', 'desc')->get();
         return view('jadwal.index', compact('jadwals', 'filter'));
     }
 
@@ -134,5 +140,30 @@ class JadwalController extends Controller
         $jadwal->delete();
 
         return redirect()->route('jadwal.index')->with('success', 'Jadwal Berhasil dihapus');
+    }
+
+    // Function Assign Pelatih ke Jadwal
+    public function assign(string $id) {
+        $jadwal = Jadwal::findOrFail($id);
+
+        $listPelatih = User::whereHas('role', function($q) {
+            $q->where('role', 'Pelatih');
+        })->get();
+
+        $assignedIds = $jadwal->pelatih()->pluck('user_id')->toArray();
+
+        return view('jadwal.assign', compact('jadwal', 'listPelatih', 'assignedIds'));
+    }
+
+    public function storeAssign(Request $request, $id) {
+        $request->validate([
+            'pelatih_id' => 'required|array|max:2',
+            'pelatih_id.*' => 'exists:user,user_id'
+        ]);
+
+        $jadwal = Jadwal::findOrFail( $id );
+        $jadwal->pelatih()->sync($request->pelatih_id);
+
+        return redirect()->route('jadwal.index')->with('success','Pelatih berhasil ditambah ke jadwal!');
     }
 }
