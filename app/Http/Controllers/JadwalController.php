@@ -90,7 +90,8 @@ class JadwalController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $jadwal = Jadwal::findOrFail( $id );
+        return view('jadwal.edit', compact('jadwal'));
     }
 
     /**
@@ -98,7 +99,30 @@ class JadwalController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Carbon::setLocale('id');
+
+        $request->validate([
+            'tanggal' => 'nullable|date',
+            'waktu_mulai' => 'required',
+            'waktu_selesai' => 'required',
+            'lokasi' => 'required|string',
+            'tim_lawan' => 'nullable|string'
+        ]);
+
+        $jadwal = Jadwal::findOrFail($id);
+        $tanggalCarbon = Carbon::parse($request->tanggal);
+        $hari = $tanggalCarbon->translatedFormat('l');
+
+        $jadwal->update([
+            'tanggal' => $tanggalCarbon->toDateString(),
+            'hari' => $hari,
+            'waktu_mulai' => $request->waktu_mulai,
+            'waktu_selesai' => $request->waktu_selesai,
+            'lokasi' => $request->lokasi,
+            'tim_lawan' => $request->tim_lawan
+        ]);
+
+        return redirect()->route('jadwal.index')->with('success', 'Jadwal Berhasil diperbaharui');
     }
 
     /**
@@ -106,6 +130,9 @@ class JadwalController extends Controller
      */
     public function destroy(string $id)
     {
-        
+        $jadwal = Jadwal::findOrFail( $id );
+        $jadwal->delete();
+
+        return redirect()->route('jadwal.index')->with('success', 'Jadwal Berhasil dihapus');
     }
 }

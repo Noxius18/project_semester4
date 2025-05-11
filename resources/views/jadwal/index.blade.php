@@ -57,10 +57,10 @@
                     <td>{{ $jadwal->tim_lawan ?? '-' }}</td>
                     <td>
                         <div class="d-flex justify-content-center gap-2">
-                            <a href="#" class="btn btn-sm btn-outline-warning">
+                            <a href="{{ route('jadwal.edit', $jadwal->jadwal_id) }}" class="btn btn-sm btn-outline-warning">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="#" method="POST" class="d-inline">
+                            <form action="{{ route('jadwal.destroy', $jadwal->jadwal_id) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Yakin hapus jadwal ini?')">
                                     <i class="fas fa-trash-alt"></i>
