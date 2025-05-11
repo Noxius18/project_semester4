@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use App\Models\Jadwal;
+use App\Models\User;
 
 class JadwalController extends Controller
 {
@@ -134,5 +135,18 @@ class JadwalController extends Controller
         $jadwal->delete();
 
         return redirect()->route('jadwal.index')->with('success', 'Jadwal Berhasil dihapus');
+    }
+
+    // Function Assign Pelatih ke Jadwal
+    public function assign(string $id) {
+        $jadwal = Jadwal::findOrFail($id);
+
+        $listPelatih = User::whereHas('role', function($q) {
+            $q->where('role', 'Pelatih');
+        })->get();
+
+        $assignedId = $jadwal->pelatih()->pluck('user_id')->toArray();
+
+        return view('jadwal.assign', compact('jadwal', 'listPelatih', 'assignedId'));
     }
 }
