@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\DashboardController;
 
 // Testing Route
 Route::get('/test', function () {
@@ -25,6 +26,9 @@ Route::post('/logout', [AuthController::class,'logout'])->name('auth.logout');
 
 // Middleware Login admin end-point
 Route::middleware(['auth', 'role:Admin'])->group(function () {
+    // Route Dashboard
+    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+    
     // Route Jadwal
     Route::get('/jadwal/reguler', [JadwalController::class,'indexReguler'])->name('jadwal.reguler');
     Route::get('/jadwal/pengganti', [JadwalController::class,'indexPengganti'])->name('jadwal.pengganti');

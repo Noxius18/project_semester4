@@ -42,7 +42,7 @@
         <nav>
             <ul class="sidebar-menu">
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('dashboard') }}" class="menu-link">
                         <i class="fas fa-home"></i> Beranda
                     </a>
                 </li>
