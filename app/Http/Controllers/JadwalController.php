@@ -74,7 +74,7 @@ class JadwalController extends Controller
 
         Jadwal::create($request->all());
 
-        return redirect()->route('jadwal.create')->with('success', 'Jadwal Berhasil Ditambahkan');
+        return redirect()->route('jadwal.index')->with('success', 'Jadwal Berhasil Ditambahkan');
     }
 
     /**
