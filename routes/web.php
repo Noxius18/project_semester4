@@ -34,5 +34,5 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/jadwal/pengganti', [JadwalController::class,'indexPengganti'])->name('jadwal.pengganti');
     Route::get('/jadwal/pertandingan', [JadwalController::class,'indexPertandingan'])->name('jadwal.pertandingan');
 
-    Route::resource('jadwal', JadwalController::class)->except('index');
+    Route::resource('jadwal', JadwalController::class);
 });

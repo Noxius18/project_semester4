@@ -25,6 +25,15 @@ class Jadwal extends Model
         "status"
     ];
 
+    public function getTipeJadwalLabelAttribute() {
+        return match($this->tipe_jadwal) {
+            'REG' => 'Latihan Reguler',
+            'PNG' => 'Latihan Pengganti',
+            'PRT' => 'Pertandingan',
+            default => 'NULL'
+        };
+    }
+
     public function pelatih() {
         return $this->belongsToMany(User::class,"jadwal_pelatih","jadwal_id","pelatih_id");
     }

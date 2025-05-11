@@ -12,30 +12,14 @@ class JadwalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    public function indexReguler() {
-        $jadwals = Jadwal::where('tipe_jadwal', 'REG')->get();
-        return view('jadwal.latihan',[
-            'title' => 'Jadwal Latihan Reguler'
-        ], compact('jadwals'));
-    }
-
-    public function indexPengganti() {
-        $jadwals = Jadwal::where('tipe_jadwal', 'PNG')->get();
-        return view('jadwal.pengganti', [
-            'title' => 'Jadwal Latihan Pengganti'
-        ], compact('jadwals'));
-    }
-
-    public function indexPertandingan() {
-        $jadwals = Jadwal::where('tipe_jadwal', 'PRT')->get();
-        return view('jadwal.pertandingan', [
-            'title' => 'Jadwal Latihan Pertandingan'
-        ], compact('jadwals'));
+        $filter = $request->query('tipe_jadwal');
+        
+        $jadwals = Jadwal::when($filter, function($query, $filter) {
+            return $query->where('tipe_jadwal', $filter);
+        })->orderBy('tanggal', 'desc')->get();
+        return view('jadwal.index', compact('jadwals', 'filter'));
     }
 
     /**

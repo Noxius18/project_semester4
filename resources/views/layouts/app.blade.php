@@ -47,9 +47,15 @@
                     </a>
                 </li>
 
+                <li class="menu-item">
+                    <a href="{{ route('jadwal.index') }}" class="menu-link">
+                        <i class="fas fa-calendar-alt"></i> Jadwal
+                    </a>
+                </li>
+
                 <!-- Jadwal Collapsible -->
-                <li class="menu-item has-dropdown">
-                    <a href="#" class="menu-link dropdown-toggle">
+                <li class="menu-item">
+                    <a href="{{ route('jadwal.index') }}" class="menu-link dropdown-toggle">
                         <i class="fas fa-calendar-alt"></i> Jadwal
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
