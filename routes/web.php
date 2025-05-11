@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\UserCOntroller;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UsersController;
 
 // Testing Route
 Route::get('/test', function () {
@@ -34,4 +36,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::post('/jadwal/{jadwal}/assign', [JadwalController::class,'storeAssign'])->name('jadwal.assign.store');
 
     Route::resource('jadwal', JadwalController::class);
+
+    // Route Users
+    Route::resource('user', UsersController::class);
 });
