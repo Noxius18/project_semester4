@@ -53,3 +53,6 @@
     </form>
 </div>
 @endsection
+
+@push('script')
+<script src="{{ asset('js/create_jadwal.js') }}"></script>
