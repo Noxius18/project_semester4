@@ -70,7 +70,7 @@
                     <td>
                         <div class="d-flex justify-content-center gap-2">
                             <a href="{{ route('jadwal.assign', $jadwal->jadwal_id) }}" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-user-plus"></i> Atur Pelatih
+                                <i class="fas fa-user-plus"></i> Atur Pelatih ({{ $jadwal->pelatih->count() }}/2)
                             </a>
                             <a href="{{ route('jadwal.edit', $jadwal->jadwal_id) }}" class="btn btn-sm btn-outline-warning">
                                 <i class="fas fa-edit"></i>
