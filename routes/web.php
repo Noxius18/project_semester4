@@ -8,17 +8,8 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsersController;
 
-// Testing Route
-Route::get('/test', function () {
-    return view('layouts.app');
-});
-
 Route::get('/', function () {
     return view('home');
-});
-
-Route::get('/tambah-jadwal', function () {
-    return view('jadwal.create');
 });
 
 // Login End-point
@@ -38,5 +29,5 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::resource('jadwal', JadwalController::class);
 
     // Route Users
-    Route::resource('user', UsersController::class);
+    Route::resource('user', UsersController::class); 
 });
