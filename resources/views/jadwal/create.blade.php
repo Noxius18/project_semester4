@@ -1,32 +1,19 @@
 @extends('layouts.app')
+@section('title', 'Tambah Jadwal')
 
 @section('content')
 <div class="container px-5 my-5">
-    <form action="#" method="POST">
+    <form action="{{ route('jadwal.store') }}" method="POST">
         @csrf
 
         <!-- Tipe Jadwal -->
         <div class="form-floating mb-3">
             <select class="form-select" id="tipe_jadwal" name="tipe_jadwal" required>
-                <option value="latihan">Latihan Reguler</option>
-                <option value="pengganti">Jadwal Pengganti</option>
-                <option value="pertandingan">Pertandingan</option>
+                <option value="REG">Latihan Reguler</option>
+                <option value="PNG">Jadwal Pengganti</option>
+                <option value="PRT">Pertandingan</option>
             </select>
             <label for="tipe_jadwal">Tipe Jadwal</label>
-        </div>
-
-        <!-- Hari (khusus latihan) -->
-        <div class="form-floating mb-3" id="field-hari">
-            <select class="form-select" id="hari" name="hari">
-                <option value="Senin">Senin</option>
-                <option value="Selasa">Selasa</option>
-                <option value="Rabu">Rabu</option>
-                <option value="Kamis">Kamis</option>
-                <option value="Jumat">Jumat</option>
-                <option value="Sabtu">Sabtu</option>
-                <option value="Minggu">Minggu</option>
-            </select>
-            <label for="hari">Hari</label>
         </div>
 
         <!-- Tanggal (non-reguler) -->

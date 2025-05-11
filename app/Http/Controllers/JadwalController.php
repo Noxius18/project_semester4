@@ -51,9 +51,10 @@ class JadwalController extends Controller
      */
     public function store(Request $request)
     {
+        Carbon::setLocale('id');
+        
         $request->validate([
-            'tipe_jadwal' => 'required|in:reguler,pengganti,pertandingan',
-            'hari' => 'string',
+            'tipe_jadwal' => 'required|in:REG,PNG,PRT',
             'tanggal' => 'nullable|date',
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required',
@@ -63,20 +64,19 @@ class JadwalController extends Controller
 
         // ID Formatting
         $tipe = strtoupper(substr($request->tipe_jadwal, 0, 3));
+        $tanggalCarbon = Carbon::parse($request->tanggal);
+        $tanggal = $tanggalCarbon->format('Ymd');
 
-        if($request->tipe_jadwal === 'reguler') {
-            $tanggalCarbon = now()->next($request->hari);
-            $tanggal = $tanggalCarbon->format('Ymd');
-            $kode_unik = strtoupper(substr($request->hari, 0, 3));
+        $hari = $tanggalCarbon->translatedFormat('l');
+
+        if($tipe === 'REG') {
+            $kode_unik = strtoupper(substr($hari, 0, 3));
         }
         else {
-            $tanggalCarbon = Carbon::parse($request->tanggal);
-            $tanggal = $tanggalCarbon->format('Ymd');
+            $count = Jadwal::where('tipe_jadwal', $tipe)
+            ->whereDate('tanggal', $tanggalCarbon->toDateString())
+            ->count() + 1;
 
-            $count = Jadwal::where('tipe_jadwal', $request->tipe_jadwal)
-                ->whereDate('tanggal', $tanggalCarbon->toDateString())
-                ->count() + 1;
-            
             $kode_unik = str_pad($count, 3, '0', STR_PAD_LEFT);
         }
 
@@ -84,7 +84,8 @@ class JadwalController extends Controller
 
         $request->merge([
             'jadwal_id' => $jadwal_id,
-            'tanggal' => $tanggalCarbon->toDateString()
+            'tanggal' => $tanggalCarbon->toDateString(),
+            'hari' => $hari
         ]);
 
         Jadwal::create($request->all());
