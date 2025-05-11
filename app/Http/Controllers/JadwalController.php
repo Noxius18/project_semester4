@@ -17,9 +17,14 @@ class JadwalController extends Controller
     {
         $filter = $request->query('tipe_jadwal');
         
-        $jadwals = Jadwal::when($filter, function($query, $filter) {
-            return $query->where('tipe_jadwal', $filter);
-        })->orderBy('tanggal', 'desc')->get();
+        $jadwals = Jadwal::with('pelatih')
+            ->when($filter, fn($q) => $q->where('tipe_jadwal', $filter))
+            ->orderBy('tanggal', 'desc')
+            ->get();
+        
+        // $jadwals = Jadwal::when($filter, function($query, $filter) {
+        //     return $query->where('tipe_jadwal', $filter);
+        // })->orderBy('tanggal', 'desc')->get();
         return view('jadwal.index', compact('jadwals', 'filter'));
     }
 
