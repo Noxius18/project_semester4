@@ -11,7 +11,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-<body>
+<body data-success="{{ session('success') }}" data-error="{{ session('error') }}">
     <!-- Navbar -->
     <nav class="navbar navbar-custom">
     <div class="container-fluid d-flex justify-content-between align-items-center px-4">

@@ -40,11 +40,12 @@
         </div>
 
         <!-- Tim Lawan (opsional) -->
-        <div class="form-floating mb-3">
-            <input class="form-control" id="tim_lawan" name="tim_lawan" type="text" value="{{ old('tim_lawan', $jadwal->tim_lawan) }}">
-            <label for="tim_lawan">Tim Lawan</label>
-        </div>
-
+        @if ($jadwal->tipe_jadwal === 'PRT')
+            <div class="form-floating mb-3">
+                <input class="form-control" id="tim_lawan" name="tim_lawan" type="text" value="{{ old('tim_lawan', $jadwal->tim_lawan) }}">
+                <label for="tim_lawan">Tim Lawan</label>
+            </div>
+        @endif
         <!-- Submit -->
         <div class="d-grid">
             <button class="btn btn-success btn-lg" type="submit">
@@ -54,3 +55,18 @@
     </form>
 </div>
 @endsection
+
+@push('script')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tipe = document.getElementById('tipe_jadwal').value;
+        const fieldTimLawan = document.getElementById('field-tim-lawan');
+        
+        if (tipe !== 'PRT') {
+            fieldTimLawan.classList.add('d-none');
+        } else {
+            fieldTimLawan.classList.remove('d-none');
+        }
+    });
+</script>
+@endpush
