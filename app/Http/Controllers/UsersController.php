@@ -94,7 +94,8 @@ class UsersController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -102,7 +103,28 @@ class UsersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail( $id );
+        
+        $validate = $request->validate([
+            'nama' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:user,username',
+            'password' => [
+                'required',
+                Password::min(8)->mixedCase()->letters()->numbers()->symbols()
+            ],
+            'jenis_kelamin' => 'required|in:L,P',
+        ]);
+
+        $validate['password'] = Hash::make($validate['password']);
+
+        $user->update([
+            'nama' => $validate['nama'],
+            'username' => $validate['username'],
+            'password' => $validate['password'],
+            'jenis_kelamin' => $validate['jenis_kelamin']
+        ]);
+
+        return redirect()->route('user.index')->with('success','User berhasil diperbaharui');
     }
 
     /**
