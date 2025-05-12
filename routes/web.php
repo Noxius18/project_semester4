@@ -26,8 +26,9 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/jadwal/{jadwal}/assign', [JadwalController::class,'assign'])->name('jadwal.assign');
     Route::post('/jadwal/{jadwal}/assign', [JadwalController::class,'storeAssign'])->name('jadwal.assign.store');
 
-    Route::resource('jadwal', JadwalController::class);
-
-    // Route Users
-    Route::resource('user', UsersController::class); 
+    // Route Resource
+    Route::resources([
+        'jadwal' => JadwalController::class,
+        'user' => UsersController::class,
+    ]);
 });
