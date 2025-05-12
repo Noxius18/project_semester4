@@ -6,7 +6,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0 fw-bold text-primary">Daftar Pengguna</h2>
-        <a href="#" class="btn btn-primary shadow-sm">
+        <a href="{{ route('user.create') }}" class="btn btn-primary shadow-sm">
             <i class="fas fa-plus me-1"></i> Tambah Pengguna
         </a>
     </div>
