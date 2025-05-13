@@ -1,0 +1,52 @@
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: ./docker/ci/
+    image: deperlas/laravel-prod
+    container_name: deperlas_prod
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+    depends_on: 
+      - db
+    volumes:
+      - ./storage:/var/www/html/storage
+    networks:
+      - laravel
+  
+  webserver:
+    image: nginx:lts
+    container_name: nginx_prod
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www/html
+      - ./docker/ci/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - laravel
+  
+  db:
+    image: mariadb:lts
+    container_name: mariadb_prod
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: semester_4
+      MARIADB_USER: project
+      MARIADB_PASSWORD: password
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - laravel
+
+networks:
+  laravel:
+
+volumes:
+  mariadb_data:
+
+    
