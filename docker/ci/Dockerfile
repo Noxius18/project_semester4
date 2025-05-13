@@ -1,3 +1,11 @@
+FROM node:lts as nodebuild
+WORKDIR /app
+COPY . .
+RUN npm install && npm run build
+
+# Copy built assets (jika pakai vite)
+COPY --from=nodebuild /app/public /var/www/html/public
+
 FROM php:8.4-fpm
 
 RUN apt-get update && apt-get install -y \
@@ -19,13 +27,5 @@ RUN composer install --no-dev --optimize-autoloader \
     && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache
-
-FROM node:lts as nodebuild
-WORKDIR /app
-COPY . .
-RUN npm install && npm run build
-
-# Copy built assets (jika pakai vite)
-COPY --from=nodebuild /app/public /var/www/html/public
 
 CMD ["php-fpm"]
