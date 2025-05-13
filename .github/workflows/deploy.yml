@@ -21,6 +21,6 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cd /var/www/deperlas
+            cd /var/www/project_semester4
             git pull origin dev
             docker compose -f docker-compose.prod.yml up -d --build
