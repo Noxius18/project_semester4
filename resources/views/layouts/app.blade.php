@@ -53,7 +53,7 @@
                     </a>
                 </li>
 
-                <!-- Jadwal Collapsible -->
+                <!-- Jadwal Collapsible
                 <li class="menu-item">
                     <a href="{{ route('jadwal.index') }}" class="menu-link dropdown-toggle">
                         <i class="fas fa-calendar-alt"></i> Jadwal
@@ -62,18 +62,13 @@
                     <ul class="dropdown-menu-collapsible">
                         <li><a href="{{ route('jadwal.index') }}" class="dropdown-item">List Jadwal</a></li>
                     </ul>
-                </li>
+                </li> -->
 
                 <!-- Anggota Collapsible -->
-                <li class="menu-item has-dropdown">
-                    <a href="#" class="menu-link dropdown-toggle">
+                <li class="menu-item">
+                    <a href="{{ route('user.index') }}" class="menu-link">
                         <i class="fas fa-users"></i> User
-                        <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
-                    <ul class="dropdown-menu-collapsible">
-                        <li><a href="#" class="dropdown-item">Pelatih</a></li>
-                        <li><a href="#" class="dropdown-item">Pemain</a></li>
-                    </ul>
                 </li>
             </ul>
         </nav>
