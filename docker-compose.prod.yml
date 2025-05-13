@@ -16,7 +16,7 @@ services:
       - laravel
   
   webserver:
-    image: nginx:lts
+    image: nginx
     container_name: nginx_prod
     restart: unless-stopped
     ports:
