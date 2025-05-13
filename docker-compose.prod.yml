@@ -10,6 +10,7 @@ services:
       - db
     volumes:
       - ./storage:/var/www/html/storage
+      - .:/var/www/html
     networks:
       - laravel
   
