@@ -1,4 +1,4 @@
-FROM node:lts as nodebuild
+FROM node:lts AS nodebuild
 WORKDIR /app
 COPY . .
 RUN npm install && npm run build
