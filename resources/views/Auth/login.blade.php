@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Deperlas Futsal Academy Login</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+
     {{-- Font --}}
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
 </head>
@@ -18,7 +19,7 @@
                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
                         <!-- Academy Logo -->
                         <div class="academy-logo-container me-md-5">
-                            <img src="{{  asset('gambar/assets/Logo_Deperlas_Main.png') }}" class="academy-logo" alt="Deperlas Futsal shield logo">
+                            <img src="{{  asset('images/assets/Logo_Deperlas_Main.png') }}" class="academy-logo" alt="Deperlas Futsal shield logo">
                         </div>
                         
                         <!-- Login Form -->
