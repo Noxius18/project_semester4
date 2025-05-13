@@ -24,3 +24,4 @@ jobs:
             cd /var/www/project_semester4
             git pull origin dev
             docker compose -f docker-compose.prod.yml up -d --build
+            
