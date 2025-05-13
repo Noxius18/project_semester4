@@ -1,6 +1,6 @@
 services:
   app:
-    build: ./docker/ci/
+    build: .
     image: deperlas/laravel-prod
     container_name: deperlas_prod
     environment:
