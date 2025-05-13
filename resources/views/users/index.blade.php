@@ -53,7 +53,7 @@
                             <a href="{{ route('user.edit', $user->user_id) }}" class="btn btn-sm btn-outline-warning">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="#" method="POST" class="d-inline">
+                            <form action="{{ route('user.destroy', $user->user_id) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm btn-outline-danger btn-delete" type="button">
                                     <i class="fas fa-trash-alt"></i>
