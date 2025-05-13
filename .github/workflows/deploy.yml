@@ -23,4 +23,4 @@ jobs:
           script: |
             cd /var/www/deperlas
             git pull origin dev
-            docker compose -d docker-compose.prod.yml up -d --build
+            docker compose -f docker-compose.prod.yml up -d --build
