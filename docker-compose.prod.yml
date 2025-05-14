@@ -34,10 +34,10 @@ services:
     container_name: mariadb
     restart: unless-stopped
     environment:
-      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${secrets.MARIADB_ROOT_PASSWORD}
       MARIADB_DATABASE: ${DB_DATABASE}
-      MARIADB_USER: ${DB_USER}
-      MARIADB_PASSWORD: ${DB_USER_PASSWORD}
+      MARIADB_USER: ${DB_USERNAME}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
     ports:
       - 1102:3306
     volumes:
@@ -50,7 +50,7 @@ services:
     image: phpmyadmin
     restart: unless-stopped
     ports:
-      - 8080:80
+      - 2000:80
     environment:
       - PMA_HOST=mariadb
     networks:
