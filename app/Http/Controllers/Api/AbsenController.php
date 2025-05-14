@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 use App\Models\Absen;
 use App\Models\Jadwal;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class AbsenController extends Controller
 {
@@ -61,5 +62,34 @@ class AbsenController extends Controller
             'message' => 'Absensi berhasil dicatat',
             'data' => $absen
         ], 200);
+    }
+
+    public function rekap($id) {
+        $jadwal = Jadwal::find($id);
+
+        if(!$jadwal) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Jadwal tidak ditemukan'
+            ]. 404);
+        }
+
+        $absensi = Absen::with('user')
+                        ->where('jadwal_id', $id)
+                        ->get()
+                        ->map(function($absen) {
+                            return [
+                                'user_id' => $absen->user->user_id,
+                                'nama' => $absen->user->nama,
+                                'status' => $absen->status,
+                            ];
+                        });
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Rekap berhasil ditemukan',
+            'data' => $absensi
+        ]);
+        
     }
 }

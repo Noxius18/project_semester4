@@ -18,6 +18,8 @@ Route::post('/jadwal/{id}/tutup-absen', [JadwalController::class, 'tutupAbsen'])
 
 Route::post('/absen', [AbsenController::class, 'absen']);
 
+Route::get('/rekap-absen/{id}', [AbsenController::class, 'rekap']);
+
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
