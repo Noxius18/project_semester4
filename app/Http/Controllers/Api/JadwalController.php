@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Models\Jadwal;
@@ -44,4 +45,63 @@ class JadwalController extends Controller
             'data' => $jadwals
         ]);
     }
+
+    public function bukaAbsen($id)
+    {
+        $jadwal = Jadwal::findOrFail($id);
+        $now = Carbon::now();
+
+        // Validasi tanggal
+        if ($jadwal->tanggal !== $now->toDateString()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Absensi hanya bisa dibuka pada tanggal yang sesuai jadwal'
+            ], 403);
+        }
+
+        // Gabungkan tanggal + jam
+        $mulai = Carbon::parse($jadwal->tanggal . ' ' . $jadwal->waktu_mulai);
+        $selesai = Carbon::parse($jadwal->tanggal . ' ' . $jadwal->waktu_selesai);
+
+        if (!$now->between($mulai, $selesai)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Absensi hanya bisa dibuka di antara waktu mulai dan selesai'
+            ], 403);
+        }
+
+        $jadwal->status = 'Buka';
+        $jadwal->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Absensi berhasil dibuka',
+            'data' => $jadwal
+        ]);
+    }
+
+
+
+
+    public function tutupAbsen($id)
+    {
+        $jadwal = Jadwal::findOrFail($id);
+
+        if ($jadwal->status !== 'Buka') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Absensi belum dibuka atau sudah ditutup'
+            ]);
+        }
+
+        $jadwal->status = 'Tutup';
+        $jadwal->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Absensi berhasil ditutup',
+            'data' => $jadwal
+        ]);
+    }
+
 }
