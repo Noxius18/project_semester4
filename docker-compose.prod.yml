@@ -12,8 +12,7 @@ services:
     networks:
       - deperlas
     depends_on:
-      mariadb:
-        condition: service_healthy
+      - mariadb
 
   
   nginx:
@@ -35,18 +34,14 @@ services:
     container_name: mariadb
     restart: unless-stopped
     environment:
-      MARIADB_DATABASE: ${DB_DATABASE}
-      MARIADB_USER: ${DB_USERNAME}
-      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: apalah
+      MARIADB_DATABASE: deperlas
+      MARIADB_USER: deploy
+      MARIADB_PASSWORD: deploy
     ports:
       - 1102:3306
     volumes:
       - mariadb_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
     networks:
       - deperlas
   
