@@ -28,12 +28,12 @@ services:
       - shared
   
   node:
-    build:
-      context: .
-      dockerfile: ./docker/ci/Dockerfile.vite
-    container_name: node
+    image: node:22-alpine
+    container_name: node_smt4
+    working_dir: /var/www/html
     volumes:
       - .:/var/www/html
+    command: sh -c "npm install && npm run dev -- --host"
     ports:
       - 5173:5173
     networks:
