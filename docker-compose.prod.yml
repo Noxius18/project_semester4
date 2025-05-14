@@ -10,9 +10,7 @@ services:
       - ./storage:/var/www/html/storage
     working_dir: /var/www/html
     networks:
-      - deperlas
-    depends_on:
-      - mariadb
+      - shared
 
   
   nginx:
@@ -27,34 +25,7 @@ services:
     depends_on:
       - php
     networks:
-      - deperlas
-  
-  mariadb:
-    image: mariadb:lts
-    container_name: mariadb
-    restart: unless-stopped
-    environment:
-      MARIADB_ROOT_PASSWORD: apalah
-      MARIADB_DATABASE: deperlas
-      MARIADB_USER: deploy
-      MARIADB_PASSWORD: deploy
-    ports:
-      - 1102:3306
-    volumes:
-      - mariadb_data:/var/lib/mysql
-    networks:
-      - deperlas
-  
-  phpmyadmin:
-    container_name: phpmyadmin_deperlas
-    image: phpmyadmin
-    restart: unless-stopped
-    ports:
-      - 2000:80
-    environment:
-      - PMA_HOST=mariadb
-    networks:
-      - deperlas
+      - shared
   
   node:
     build:
@@ -64,11 +35,8 @@ services:
     volumes:
       - .:/var/www/html
     networks:
-      - deperlas
+      - shared
 
 networks:
-  deperlas:
-    driver: bridge
-
-volumes:
-  mariadb_data:
+  shared:
+    external: true
