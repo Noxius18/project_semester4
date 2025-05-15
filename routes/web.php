@@ -8,8 +8,12 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsersController;
 
-Route::get('/', function () {
-    return view('home');
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+Route::get('/', function() {
+    return view('Auth.login');
 });
 
 // Login End-point
