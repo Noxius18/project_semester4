@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const tipe = tipeSelect.value;
 
         if (tipe === 'REG') {
-            tanggalGroup.classList.add('d-none');
+            // tanggalGroup.classList.add('d-none');
             timLawanGroup.classList.add('d-none');
         } else if (tipe === 'PNG') {
             tanggalGroup.classList.remove('d-none');
