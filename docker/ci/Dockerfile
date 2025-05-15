@@ -23,7 +23,7 @@ RUN composer install --optimize-autoloader --no-dev
 
 RUN npm install && npm run build
 
-RUN chown -R www-data:www-data /var/www
+RUN chown -R www-data:www-data /var/www/
 RUN chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 
 EXPOSE 9000
