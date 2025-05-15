@@ -38,7 +38,7 @@ class UsersController extends Controller
             });
         }
 
-        $users = $query->paginate(5)->withQueryString();
+        $users = $query->paginate(10)->withQueryString();
 
         $roles = Roles::all()->pluck('role');
         $jenisKelaminOptions = [
@@ -137,13 +137,13 @@ class UsersController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
-        
+
         $rules = [
             'nama' => 'required|string|max:75',
             'username' => 'required|string|max:25|unique:user,username,'.$user->user_id.',user_id',
             'jenis_kelamin' => 'required|in:L,P',
         ];
-    
+
         // Password optional
         if ($request->filled('password')) {
             $rules['password'] = [
@@ -151,18 +151,18 @@ class UsersController extends Controller
                 Password::min(8)->mixedCase()->letters()->numbers()->symbols()
             ];
         }
-    
+
         $validated = $request->validate($rules);
-    
+
         // Hanya update password jika diisi
         if (!empty($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);
         } else {
             unset($validated['password']);
         }
-    
+
         $user->update($validated);
-    
+
         return redirect()->route('user.index')->with('success','User berhasil diperbaharui');
     }
 

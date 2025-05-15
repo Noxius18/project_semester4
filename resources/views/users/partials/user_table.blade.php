@@ -15,7 +15,7 @@
                 @forelse ($users as $user)
                 <tr class="text-center">
                     <td>{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}</td>
-                    <td class="text-start">{{ $user->nama }}</td>
+                    <td>{{ $user->nama }}</td>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->jenis_kelamin }}</td>
                     <td>
