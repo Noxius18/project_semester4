@@ -10,6 +10,7 @@ services:
       - ./:/var/www
     networks:
       - shared
+      - deperlas_net
   
   webserver:
     image: nginx:alpine
@@ -22,9 +23,11 @@ services:
       - ./docker/ci/server/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - shared
+      - deperlas_net
     depends_on:
       - php
 
 networks:
   shared:
     external: true
+  deperlas_net:
