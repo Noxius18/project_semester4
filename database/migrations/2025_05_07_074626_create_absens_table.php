@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('jadwal_id', 14);
             
             // Foreign Key
-            $table->foreign('user_id')->references('user_id')->on('user');
-            $table->foreign('jadwal_id')->references('jadwal_id')->on('jadwal');
+            $table->foreign('user_id')->references('user_id')->on('user')->onDelete('cascade');
+            $table->foreign('jadwal_id')->references('jadwal_id')->on('jadwal')->onDelete('cascade');
         });
     }
 

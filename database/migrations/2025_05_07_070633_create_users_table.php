@@ -21,7 +21,7 @@ return new class extends Migration
             
 
             // Foreign Key
-            $table->foreign('role_id')->references('role_id')->on('roles');
+            $table->foreign('role_id')->references('role_id')->on('roles')->onDelete('cascade');
         });
     }
 

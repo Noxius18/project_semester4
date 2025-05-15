@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('jadwal_id',20);
 
             // Foreign Key
-            $table->foreign('pelatih_id')->references('user_id')->on('user');
-            $table->foreign('jadwal_id')->references('jadwal_id')->on('jadwal');
+            $table->foreign('pelatih_id')->references('user_id')->on('user')->onDelete('cascade');
+            $table->foreign('jadwal_id')->references('jadwal_id')->on('jadwal')->onDelete('cascade');
 
             $table->primary(['pelatih_id', 'jadwal_id']);
         });
