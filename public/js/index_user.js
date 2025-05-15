@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search-input');
     const roleFilter = document.getElementById('role-filter');
+    const genderFilter = document.getElementById('gender-filter'); // Tambahkan filter jenis kelamin
     const resetFilter = document.getElementById('reset-filter');
     const loadingIndicator = document.getElementById('loading-indicator');
     
@@ -115,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyResetBtn.addEventListener('click', function() {
                 searchInput.value = '';
                 roleFilter.value = '';
+                genderFilter.value = ''; // Reset filter jenis kelamin
                 updateUsersList();
             });
         }
@@ -132,6 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const roleValue = roleFilter.value;
         if (roleValue) {
             params.append('role', roleValue);
+        }
+        
+        // Tambahkan parameter jenis kelamin
+        const genderValue = genderFilter.value;
+        if (genderValue) {
+            params.append('jenis_kelamin', genderValue);
         }
         
         return params;
@@ -169,10 +177,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     roleFilter.addEventListener('change', updateUsersList);
+    genderFilter.addEventListener('change', updateUsersList); // Tambahkan listener untuk gender filter
     
     resetFilter.addEventListener('click', function() {
         searchInput.value = '';
         roleFilter.value = '';
+        genderFilter.value = ''; // Reset gender filter
         updateUsersList();
     });
     

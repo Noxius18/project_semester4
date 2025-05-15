@@ -18,10 +18,16 @@ class UsersController extends Controller
     {
         $query = User::with('role');
 
+        // Filter Berdasarkan Role
         if($request->filled('role')) {
             $query->whereHas('role', function($q) use ($request) {
                 $q->where('role', $request->role);
             }); 
+        }
+
+        // Filter Berdasarkan Jenis Kelamin
+        if($request->filled('jenis_kelamin')) {
+            $query->where('jenis_kelamin', $request->jenis_kelamin);
         }
 
         if ($request->filled('search')) {
@@ -35,12 +41,16 @@ class UsersController extends Controller
         $users = $query->paginate(5)->withQueryString();
 
         $roles = Roles::all()->pluck('role');
+        $jenisKelaminOptions = [
+            "L" => "Laki - Laki",
+            "P" => "Perempuan"
+        ];
 
         if ($request->ajax()) {
             return view('users.partials.user_table', compact('users'))->render();
         }
 
-        return view('users.index', compact('users', 'roles'));
+        return view('users.index', compact('users', 'roles', 'jenisKelaminOptions'));
         
     }
 
