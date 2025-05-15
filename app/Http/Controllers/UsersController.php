@@ -36,6 +36,10 @@ class UsersController extends Controller
 
         $roles = Roles::all()->pluck('role');
 
+        if ($request->ajax()) {
+            return view('users.partials.user_table', compact('users'))->render();
+        }
+
         return view('users.index', compact('users', 'roles'));
         
     }
