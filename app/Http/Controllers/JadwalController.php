@@ -157,12 +157,12 @@ class JadwalController extends Controller
 
     public function storeAssign(Request $request, $id) {
         $request->validate([
-            'pelatih_id' => 'required|array|max:2',
+            'pelatih_id' => 'nullable|array|max:2',
             'pelatih_id.*' => 'exists:user,user_id'
         ]);
 
         $jadwal = Jadwal::findOrFail( $id );
-        $jadwal->pelatih()->sync($request->pelatih_id);
+        $jadwal->pelatih()->sync($request->pelatih_id ?? []);
 
         return redirect()->route('jadwal.index')->with('success','Pelatih berhasil ditambah ke jadwal!');
     }
