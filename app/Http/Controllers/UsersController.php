@@ -7,17 +7,36 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
+use App\Models\Roles;
 
 class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::with('role')->paginate(10);
+        $query = User::with('role');
 
-        return view('users.index', compact('users'));
+        if($request->filled('role')) {
+            $query->whereHas('role', function($q) use ($request) {
+                $q->where('role', $request->role);
+            }); 
+        }
+
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('nama', 'like', "%{$searchTerm}%")
+                  ->orWhere('username', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        $users = $query->paginate(5)->withQueryString();
+
+        $roles = Roles::all()->pluck('role');
+
+        return view('users.index', compact('users', 'roles'));
         
     }
 
