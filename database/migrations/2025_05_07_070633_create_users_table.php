@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('user', function (Blueprint $table) {
             $table->string('user_id', 6)->primary();
             $table->string('nama', 75);
-            $table->string('username',25);
+            $table->string('username',25)->unique();
             $table->string('password',60);
             $table->enum('jenis_kelamin', ['L','P'])->default('L');
             $table->char('role_id', 3);
             
 
             // Foreign Key
-            $table->foreign('role_id')->references('role_id')->on('roles');
+            $table->foreign('role_id')->references('role_id')->on('roles')->onDelete('cascade');
         });
     }
 

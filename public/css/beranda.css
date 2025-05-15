@@ -1,0 +1,192 @@
+/* ===== Base Styles ===== */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff;
+    color: #1a2461;
+}
+
+/* ===== Font Definitions ===== */
+.font-deperlas {
+    font-family: 'Roboto Slab', serif;
+}
+
+/* ===== Combined Navbar/Header ===== */
+.navbar-custom {
+    background-color: #1a2461;
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding-left: 20px !important; /* Memberi space untuk logo */
+    min-height: 120px; /* Tinggi navbar disesuaikan dengan logo */
+}
+
+.header-logo {
+    display: flex;
+    align-items: left;
+    gap: 1.5rem;
+}
+
+.academy-logo {
+    width: 120px;
+    height: 100px;
+    object-fit: contain;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.academy-titles {
+    line-height: 1.2;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(255,255,255,0.2);
+}
+
+.academy-name {
+    font-size: 24px;
+    color: white;
+    letter-spacing: 0.8px;
+    margin: 0;
+}
+
+.academy-tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    margin: 3px 0 0 0;
+}
+
+/* ===== Navigation Elements ===== */
+.nav-icon {
+    font-size: 1.3rem;
+    color: white;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.nav-icon:hover {
+    background-color: rgba(255,255,255,0.15);
+    transform: scale(1.05);
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 220px;
+    border-radius: 6px;
+}
+
+.dropdown-item {
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    color: #1a2461;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-item i {
+    width: 25px;
+    text-align: center;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    padding-left: 1.75rem;
+}
+
+/* ===== Main Content ===== */
+.welcome-section {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    letter-spacing: 1.2px;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-subtitle {
+    font-size: 1.8rem;
+    letter-spacing: 0.8px;
+}
+
+.full-width-banner {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
+}
+
+.banner-image {
+    width: 100%;
+    height: 236px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+}
+
+
+/* ===== Carousel Section ===== */
+.bottom-section {
+    background-color: #1a2461;
+    padding: 4rem 0;
+    margin-top: 4rem;
+}
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.carousel-image {
+    width: 220px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.carousel-image:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.carousel-arrow {
+    font-size: 2.5rem;
+    color: white;
+    cursor: pointer;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.carousel-arrow:hover {
+    color: rgba(255,255,255,0.8);
+    transform: scale(1.1);
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.carousel-dot {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    color: white;
+    font-size: 12px;
+}

@@ -15,6 +15,7 @@ class Jadwal extends Model
     public $timestamps = false;
     protected $fillable = [
         "jadwal_id",
+        "tipe_jadwal",
         "hari",
         "lokasi",
         "tanggal",
@@ -23,6 +24,15 @@ class Jadwal extends Model
         "tim_lawan",
         "status"
     ];
+
+    public function getTipeJadwalLabelAttribute() {
+        return match($this->tipe_jadwal) {
+            'REG' => 'Latihan Reguler',
+            'PNG' => 'Latihan Pengganti',
+            'PRT' => 'Pertandingan',
+            default => 'NULL'
+        };
+    }
 
     public function pelatih() {
         return $this->belongsToMany(User::class,"jadwal_pelatih","jadwal_id","pelatih_id");

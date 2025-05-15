@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('jadwal', function (Blueprint $table) {
             $table->string('jadwal_id', 14)->primary();
+            $table->enum('tipe_jadwal', ['REG', 'PNG', 'PRT']);
             $table->enum('hari', ['Senin',
                                                     'Selasa', 
                                                     'Rabu', 
