@@ -20,7 +20,7 @@ class JadwalController extends Controller
         $jadwals = Jadwal::with('pelatih')
             ->when($filter, fn($q) => $q->where('tipe_jadwal', $filter))
             ->orderBy('tanggal', 'desc')
-            ->get();
+            ->paginate(10);
         
         // $jadwals = Jadwal::when($filter, function($query, $filter) {
         //     return $query->where('tipe_jadwal', $filter);
