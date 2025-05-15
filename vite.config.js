@@ -15,4 +15,10 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    build: {
+        sourcemap: command === 'serve' ? true : false,
+        minify: 'terser',
+        cssMinify: true,
+        manifest: true
+    }
 });
