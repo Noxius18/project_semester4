@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Models\Jadwal;
+use App\Models\User;
+use App\Models\Absen;
 
 class JadwalController extends Controller
 {
@@ -79,10 +81,7 @@ class JadwalController extends Controller
             'data' => $jadwal
         ]);
     }
-
-
-
-
+    
     public function tutupAbsen($id)
     {
         $jadwal = Jadwal::findOrFail($id);
@@ -94,12 +93,54 @@ class JadwalController extends Controller
             ]);
         }
 
+        $pemain = User::whereHas('role', function($q) {
+            $q->where('role', 'Pemain');
+        })->get();
+
+        $sudahAbsen = Absen::where('jadwal_id', $jadwal->jadwal_id)
+                           ->pluck('user_id')
+                           ->toArray();
+        
+        $belumAbsen = $pemain->filter(function($user) use ($sudahAbsen) {
+            return !in_array($user->user_id, $sudahAbsen);
+        });
+                      
+        
+        foreach($belumAbsen as $user) {
+            // Absen id untuk yang tidak hadir
+            $kodeStatus = 'T';
+            $tanggal = now()->format('d');
+
+            $count = Absen::where('user_id', $user->user_id)
+                          ->where('jadwal_id', $jadwal->jadwal_id)
+                          ->count() + 1;
+            
+            $urut = str_pad($count, 2, '0', STR_PAD_LEFT);
+
+            $absenId = 'A' . $kodeStatus . $tanggal . $urut;
+
+            while(Absen::where('absen_id', $absenId)->exists()) {
+                $count++;
+                $urut = str_pad($count, 2, "0", STR_PAD_LEFT);
+                $absenId = 'A' . $kodeStatus . $tanggal . $urut;
+            }
+
+            Absen::create([
+                'absen_id' => $absenId,
+                'user_id' => $user->user_id,
+                'jadwal_id' => $jadwal->jadwal_id,
+                'status' => 'Tidak Hadir'
+            ]);
+        }
+
+
         $jadwal->status = 'Tutup';
         $jadwal->save();
 
         return response()->json([
             'success' => true,
-            'message' => 'Absensi berhasil ditutup',
+            'message' => 'Absensi berhasil ditutup, Pemain yang tidak absen akan ditandai dengan "Tidak Hadir"',
+            'total_alfa' => count($belumAbsen),
             'data' => $jadwal
         ]);
     }
