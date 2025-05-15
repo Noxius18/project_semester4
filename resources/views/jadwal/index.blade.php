@@ -97,10 +97,14 @@
     </div>
 
     <!-- Pagination -->
-    <!-- Pagination Links yang lebih compact dan sejajar -->
-    <div class="d-flex justify-content-center mt-4">
+    <!-- Pagination & Info -->
+    @if($jadwals->count() > 0)
+    <div class="d-md-flex justify-content-between align-items-center mt-3">
+        <div class="text-muted small mb-2 mb-md-0">
+            Menampilkan {{ $jadwals->firstItem() }} hingga {{ $jadwals->lastItem() }} dari {{ $jadwals->total() }} data
+        </div>
         <nav aria-label="Halaman jadwal">
-            <ul class="pagination pagination-sm">
+            <ul class="pagination pagination-sm mb-0">
                 {{-- Previous Page Link --}}
                 @if ($jadwals->onFirstPage())
                     <li class="page-item disabled">
@@ -111,14 +115,14 @@
                         <a class="page-link" href="{{ $jadwals->previousPageUrl() }}" rel="prev">&laquo;</a>
                     </li>
                 @endif
-    
+
                 {{-- Pagination Elements --}}
                 @for ($i = 1; $i <= $jadwals->lastPage(); $i++)
                     <li class="page-item {{ ($jadwals->currentPage() == $i) ? 'active' : '' }}">
                         <a class="page-link" href="{{ $jadwals->url($i) }}">{{ $i }}</a>
                     </li>
                 @endfor
-    
+
                 {{-- Next Page Link --}}
                 @if ($jadwals->hasMorePages())
                     <li class="page-item">
@@ -132,7 +136,7 @@
             </ul>
         </nav>
     </div>
-</div>
+    @endif
 @endsection
 
 @push('script')
