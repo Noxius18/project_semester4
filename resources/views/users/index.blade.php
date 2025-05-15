@@ -3,96 +3,80 @@
 
 @section('content')
 <div class="container py-4">
-
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="mb-0 fw-bold text-primary">Daftar Pengguna</h2>
+        <h2 class="mb-0 fw-bold text-primary">Daftar User</h2>
         <a href="{{ route('user.create') }}" class="btn btn-primary shadow-sm">
-            <i class="fas fa-plus me-1"></i> Tambah Pengguna
+            <i class="fas fa-plus me-1"></i> Tambah User
         </a>
     </div>
 
-    <!-- Table -->
-    <div class="table-responsive shadow-sm rounded">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
-                <tr class="text-center text-uppercase small">
-                    <th>#</th>
-                    <th>Nama</th>
-                    <th>Username</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Role</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($users as $user)
-                <tr class="text-center">
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $user->nama }}</td>
-                    <td>{{ $user->username }}</td>
-                    <td>{{ $user->jenis_kelamin }}</td>
-                    <td>
-                        @if ($user->role->role === 'Admin')
-                            <span class="badge bg-danger">{{ $user->role->role }}</span>
-                        @elseif ($user->role->role === 'Pelatih')
-                            <span class="badge bg-primary">{{ $user->role->role }}</span>
-                        @else
-                            <span class="badge bg-success">{{ $user->role->role }}</span>
-                        @endif
-                    </td>
-                        <span class="badge"
-                        @if($user->role->role == 'Admin') bg-danger
-                        @elseif($user->role->role == 'Pelatih') bg-primary
-                        @else bg-success
-                        @endif>
-                        {{ $user->role->role }}
+    <!-- Filter & Search -->
+    <!-- Di dalam form filter -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form id="search-form" method="GET" action="{{ route('user.index') }}" class="row g-3">
+                <!-- Search Bar -->
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white">
+                            <i class="fas fa-search text-muted"></i>
                         </span>
-                    </td>
-                    <td>
-                        <div class="d-flex justify-content-center gap-2">
-                            <a href="{{ route('user.edit', $user->user_id) }}" class="btn btn-sm btn-outline-warning">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form action="{{ route('user.destroy', $user->user_id) }}" method="POST" class="d-inline">
-                                @csrf @method('DELETE')
-                                <button class="btn btn-sm btn-outline-danger btn-delete" type="button">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="6" class="text-center text-muted py-4">Tidak ada data user.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+                        <input type="text" name="search" id="search-input" class="form-control border-start-0" 
+                               placeholder="Cari nama atau username..." value="{{ request('search') }}">
+                    </div>
+                </div>
+                
+                <!-- Role Filter -->
+                <div class="col-md-3">
+                    <select name="role" id="role-filter" class="form-select">
+                        <option value="">Semua Role</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role }}" {{ request('role') == $role ? 'selected' : '' }}>
+                                {{ $role }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+    
+                <!-- Jenis Kelamin Filter -->
+                <div class="col-md-3">
+                    <select name="jenis_kelamin" id="gender-filter" class="form-select">
+                        <option value="">Semua Jenis Kelamin</option>
+                        @foreach($jenisKelaminOptions as $key => $label)
+                            <option value="{{ $key }}" {{ request('jenis_kelamin') == $key ? 'selected' : '' }}>
+                                {{ $label }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                <!-- Reset Button -->
+                <div class="col-md-2">
+                    <div class="d-grid">
+                        <button type="button" id="reset-filter" class="btn btn-outline-secondary">
+                            <i class="fas fa-redo-alt me-1"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading-indicator" class="text-center my-4 d-none">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2 text-muted">Memuat data...</p>
+    </div>
+
+    <!-- Table Container -->
+    <div id="user-table-container">
+        @include('users.partials.user_table')
     </div>
 </div>
 @endsection
 
 @push('script')
-<script>
-    // Konfirmasi hapus
-    document.querySelectorAll('.btn-delete').forEach(button => {
-        button.addEventListener('click', () => {
-            Swal.fire({
-                title: 'Yakin ingin menghapus user ini?',
-                text: "Tindakan ini tidak bisa dibatalkan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, hapus',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    button.closest('form').submit();
-                }
-            });
-        });
-    });
-</script>
+<script src="{{ asset('js/index_user.js') }}"></script>
 @endpush

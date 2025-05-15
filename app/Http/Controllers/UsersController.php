@@ -7,17 +7,50 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
+use App\Models\Roles;
 
 class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::with('role')->paginate(10);
+        $query = User::with('role');
 
-        return view('users.index', compact('users'));
+        // Filter Berdasarkan Role
+        if($request->filled('role')) {
+            $query->whereHas('role', function($q) use ($request) {
+                $q->where('role', $request->role);
+            }); 
+        }
+
+        // Filter Berdasarkan Jenis Kelamin
+        if($request->filled('jenis_kelamin')) {
+            $query->where('jenis_kelamin', $request->jenis_kelamin);
+        }
+
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('nama', 'like', "%{$searchTerm}%")
+                  ->orWhere('username', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        $users = $query->paginate(10)->withQueryString();
+
+        $roles = Roles::all()->pluck('role');
+        $jenisKelaminOptions = [
+            "L" => "Laki - Laki",
+            "P" => "Perempuan"
+        ];
+
+        if ($request->ajax()) {
+            return view('users.partials.user_table', compact('users'))->render();
+        }
+
+        return view('users.index', compact('users', 'roles', 'jenisKelaminOptions'));
         
     }
 
@@ -103,26 +136,32 @@ class UsersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = User::findOrFail( $id );
-        
-        $validate = $request->validate([
-            'nama' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:user,username',
-            'password' => [
-                'required',
-                Password::min(8)->mixedCase()->letters()->numbers()->symbols()
-            ],
+        $user = User::findOrFail($id);
+
+        $rules = [
+            'nama' => 'required|string|max:75',
+            'username' => 'required|string|max:25|unique:user,username,'.$user->user_id.',user_id',
             'jenis_kelamin' => 'required|in:L,P',
-        ]);
+        ];
 
-        $validate['password'] = Hash::make($validate['password']);
+        // Password optional
+        if ($request->filled('password')) {
+            $rules['password'] = [
+                'nullable',
+                Password::min(8)->mixedCase()->letters()->numbers()->symbols()
+            ];
+        }
 
-        $user->update([
-            'nama' => $validate['nama'],
-            'username' => $validate['username'],
-            'password' => $validate['password'],
-            'jenis_kelamin' => $validate['jenis_kelamin']
-        ]);
+        $validated = $request->validate($rules);
+
+        // Hanya update password jika diisi
+        if (!empty($validated['password'])) {
+            $validated['password'] = Hash::make($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
+
+        $user->update($validated);
 
         return redirect()->route('user.index')->with('success','User berhasil diperbaharui');
     }
@@ -133,6 +172,10 @@ class UsersController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
+
+        $user->absensi()->delete();
+        $user->jadwal()->detach();
+
         $user->delete();
 
         return redirect()->route('user.index')->with('success', 'User berhasil dihapus');
