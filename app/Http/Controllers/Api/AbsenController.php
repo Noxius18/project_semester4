@@ -50,6 +50,12 @@ class AbsenController extends Controller
 
         $absenId = 'A' . $kodeStatus . $tanggal . $urut;
 
+        while(Absen::where('absen_id', $absenId)->exists()) {
+            $count++;
+            $urut = str_pad($count, 2, '0', STR_PAD_LEFT);
+            $absenId = 'A' . $kodeStatus . $tanggal . $urut;
+        }
+
         $absen = Absen::create([
             'absen_id' => $absenId,
             'user_id' => $request->user_id,
