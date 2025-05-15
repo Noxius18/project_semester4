@@ -133,6 +133,10 @@ class UsersController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
+
+        $user->absensi()->delete();
+        $user->jadwal()->detach();
+
         $user->delete();
 
         return redirect()->route('user.index')->with('success', 'User berhasil dihapus');
