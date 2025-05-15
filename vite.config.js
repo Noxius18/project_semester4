@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
     server: {
         host: '0.0.0.0',
         port: 5173,
@@ -17,8 +17,7 @@ export default defineConfig({
     ],
     build: {
         sourcemap: command === 'serve' ? true : false,
-        minify: 'terser',
         cssMinify: true,
         manifest: true
     }
-});
+}));
