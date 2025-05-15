@@ -136,27 +136,33 @@ class UsersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = User::findOrFail( $id );
+        $user = User::findOrFail($id);
         
-        $validate = $request->validate([
-            'nama' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:user,username',
-            'password' => [
-                'required',
-                Password::min(8)->mixedCase()->letters()->numbers()->symbols()
-            ],
+        $rules = [
+            'nama' => 'required|string|max:75',
+            'username' => 'required|string|max:25|unique:user,username,'.$user->user_id.',user_id',
             'jenis_kelamin' => 'required|in:L,P',
-        ]);
-
-        $validate['password'] = Hash::make($validate['password']);
-
-        $user->update([
-            'nama' => $validate['nama'],
-            'username' => $validate['username'],
-            'password' => $validate['password'],
-            'jenis_kelamin' => $validate['jenis_kelamin']
-        ]);
-
+        ];
+    
+        // Password optional
+        if ($request->filled('password')) {
+            $rules['password'] = [
+                'nullable',
+                Password::min(8)->mixedCase()->letters()->numbers()->symbols()
+            ];
+        }
+    
+        $validated = $request->validate($rules);
+    
+        // Hanya update password jika diisi
+        if (!empty($validated['password'])) {
+            $validated['password'] = Hash::make($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
+    
+        $user->update($validated);
+    
         return redirect()->route('user.index')->with('success','User berhasil diperbaharui');
     }
 
