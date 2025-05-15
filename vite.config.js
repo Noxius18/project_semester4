@@ -16,6 +16,7 @@ export default defineConfig(({ command }) => ({
         tailwindcss(),
     ],
     build: {
+        outDir: 'public/build',
         sourcemap: command === 'serve' ? true : false,
         cssMinify: true,
         manifest: true
