@@ -16,8 +16,7 @@ export default defineConfig(({ command }) => ({
         tailwindcss(),
     ],
     build: {
-        outDir: 'public/build/.vite',
-        manifest: true,
+        outDir: 'public/build',
         manifestPath: 'public/build/.vite/manifest.json',
         sourcemap: command === 'serve' ? true : false,
         cssMinify: true,
