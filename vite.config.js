@@ -19,7 +19,6 @@ export default defineConfig(({ command }) => ({
         outDir: 'public/build/',
         manifest: true,
         sourcemap: command === 'serve' ? true : false,
-        cssMinify: true,
-        manifest: true
+        minify: 'esbuild',
     }
 }));
