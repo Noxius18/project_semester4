@@ -17,9 +17,9 @@ jobs:
           key: ${{ secrets.EC2_KEY}}
           script: |
             cd /var/www/deperlas
-            git pull origin main
-            npm ci 
-            npm run build
+            sudo git pull origin main
+            sudo npm ci 
+            sudo npm run build
             php artisan optimize:clear
             php artisan optimize 
             sudo systemctl restart php8.4-fpm
