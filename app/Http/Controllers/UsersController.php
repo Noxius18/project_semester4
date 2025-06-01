@@ -67,15 +67,34 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
+        $request->validate([
             'nama' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:user,username',
+            'username' => 'required|string|max:255|min:3|unique:user,username',
             'password' => [
                 'required',
+                'confirmed',
                 Password::min(8)->mixedCase()->letters()->numbers()->symbols()
             ],
             'jenis_kelamin' => 'required|in:L,P',
             'role' => 'required|in:Admin,Pelatih,Pemain'
+        ], [
+            'nama.required' => 'Nama harus diisi.',
+            'nama.max' => 'Nama maksimal 255 karakter.',
+            
+            'username.required' => 'Username harus diisi.',
+            'username.min' => 'Username minimal 3 karakter.',
+            'username.max' => 'Username maksimal 255 karakter.',
+            'username.unique' => 'Username sudah digunakan.',
+            
+            'password.required' => 'Password harus diisi.',
+            'password.min' => 'Password minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            
+            'jenis_kelamin.required' => 'Jenis kelamin harus dipilih.',
+            'jenis_kelamin.in' => 'Jenis kelamin tidak valid.',
+            
+            'role.required' => 'Role harus dipilih.',
+            'role.in' => 'Role tidak valid.'
         ]);
 
         // Hash password
