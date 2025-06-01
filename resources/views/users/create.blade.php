@@ -10,7 +10,7 @@
 
         <!-- Nama -->
         <div class="form-floating mb-3">
-            <input class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" type="text" value="{{ old('nama') }}" required>
+            <input class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" type="text" value="{{ old('nama') }}">
             <label for="nama">Nama</label>
             @error('nama')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -19,7 +19,7 @@
 
         <!-- Username -->
         <div class="form-floating mb-3">
-            <input class="form-control @error('username') is-invalid @enderror" id="username" name="username" type="text" value="{{ old('username') }}" required>
+            <input class="form-control @error('username') is-invalid @enderror" id="username" name="username" type="text" value="{{ old('username') }}">
             <label for="username">Username</label>
             @error('username')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -28,7 +28,7 @@
 
         <!-- Password -->
         <div class="form-floating mb-3">
-            <input class="form-control @error('password') is-invalid @enderror" id="password" name="password" type="password" required>
+            <input class="form-control @error('password') is-invalid @enderror" id="password" name="password" type="password">
             <label for="password">Password</label>
             @error('password')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -37,7 +37,7 @@
 
         <!-- Jenis Kelamin -->
         <div class="form-floating mb-3">
-            <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin" required>
+            <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin">
                 <option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki</option>
                 <option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
             </select>
@@ -49,7 +49,7 @@
 
         <!-- Role -->
         <div class="form-floating mb-3">
-            <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
+            <select class="form-select @error('role') is-invalid @enderror" id="role" name="role">
                 <option value="Admin" {{ old('role') == 'Admin' ? 'selected' : '' }}>Admin</option>
                 <option value="Pelatih" {{ old('role') == 'Pelatih' ? 'selected' : '' }}>Pelatih</option>
                 <option value="Pemain" {{ old('role') == 'Pemain' ? 'selected' : '' }}>Pemain</option>
