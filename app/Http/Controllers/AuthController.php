@@ -16,12 +16,33 @@ class AuthController extends Controller
 
     public function login(Request $request) {
         $request->validate([
-        'username' => 'required',
-        'password' => 'required',
-    ], [
-        'username.required' => 'Username harus diisi.',
-        'password.required' => 'Password harus diisi.',
-    ]);
+            'username' => 'required',
+            'password' => 'required',
+        ], [
+            'username.required' => 'Username harus diisi.',
+            'password.required' => 'Password harus diisi.',
+        ]);
+
+        // Validasi Username namun password Kosong
+        if (!empty($request->username) && empty($request->password)) {
+            return back()->withErrors([
+                'login' => 'Password tidak boleh kosong ketika username sudah diisi.'
+            ]);
+        }
+
+        // Validasi Password namun username kosong
+        if (empty($request->username) && !empty($request->password)) {
+            return back()->withErrors([
+                'login' => 'Username tidak boleh kosong ketika password sudah diisi.'
+            ]);
+        }
+
+        // Validasi jika username dan password kosong
+        if (empty($username) && empty($password)) {
+            return back()->withErrors([
+                'login' => 'Username dan Password harus diisi.'
+            ]);
+        }
 
         $user = User::where('username', $request->username)->first();
 
