@@ -15,54 +15,54 @@ class AuthController extends Controller
     }
 
     public function login(Request $request) {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-        ], [
-            'username.required' => 'Username harus diisi.',
-            'password.required' => 'Password harus diisi.',
-        ]);
+    $request->validate([
+        'username' => 'required',
+        'password' => 'required',
+    ], [
+        'username.required' => 'Username harus diisi.',
+        'password.required' => 'Password harus diisi.',
+    ]);
 
-        // Validasi Username namun password Kosong
-        if (!empty($request->username) && empty($request->password)) {
-            return back()->withErrors([
-                'login' => 'Password tidak boleh kosong ketika username sudah diisi.'
-            ]);
-        }
-
-        // Validasi Password namun username kosong
-        if (empty($request->username) && !empty($request->password)) {
-            return back()->withErrors([
-                'login' => 'Username tidak boleh kosong ketika password sudah diisi.'
-            ]);
-        }
-
-        // Validasi jika username dan password kosong
-        if (empty($username) && empty($password)) {
-            return back()->withErrors([
-                'login' => 'Username dan Password harus diisi.'
-            ]);
-        }
-
-        $user = User::where('username', $request->username)->first();
-
-        if($user && Hash::check($request->password, $user->password)) {
-            Auth::login($user);
-
-            if($user->role->role == 'Admin') {
-                return redirect()->intended('dashboard');
-            }
-
-            Auth::logout();
-            return back()->withErrors([
-                'login' => 'Akses Web hanya untuk Admin'
-            ]);
-        }
-
+    // Validasi Username namun password Kosong
+    if (!empty($request->username) && empty($request->password)) {
         return back()->withErrors([
-            'login' => 'Username atau Password Salah'
+            'login' => 'Password tidak boleh kosong ketika username sudah diisi.'
         ]);
     }
+
+    // Validasi Password namun username kosong
+    if (empty($request->username) && !empty($request->password)) {
+        return back()->withErrors([
+            'login' => 'Username tidak boleh kosong ketika password sudah diisi.'
+        ]);
+    }
+
+    // Validasi jika username dan password kosong (PERBAIKAN DI SINI)
+    if (empty($request->username) && empty($request->password)) {
+        return back()->withErrors([
+            'login' => 'Username dan Password harus diisi.'
+        ]);
+    }
+
+    $user = User::where('username', $request->username)->first();
+
+    if($user && Hash::check($request->password, $user->password)) {
+        Auth::login($user);
+
+        if($user->role->role == 'Admin') {
+            return redirect()->intended('dashboard');
+        }
+
+        Auth::logout();
+        return back()->withErrors([
+            'login' => 'Akses Web hanya untuk Admin'
+        ]);
+    }
+
+    return back()->withErrors([
+        'login' => 'Username atau Password Salah'
+    ]);
+}
     
     public function logout(Request $request) {
         Auth::logout();
