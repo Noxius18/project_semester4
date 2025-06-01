@@ -39,8 +39,7 @@
         <div class="form-floating mb-3">
             <select class="form-select @error('tipe_jadwal') is-invalid @enderror" 
                     id="tipe_jadwal" 
-                    name="tipe_jadwal" 
-                    required>
+                    name="tipe_jadwal">
                 <option value="">-- Pilih Tipe Jadwal --</option>
                 <option value="REG" {{ old('tipe_jadwal') == 'REG' ? 'selected' : '' }}>Latihan Reguler</option>
                 <option value="PNG" {{ old('tipe_jadwal') == 'PNG' ? 'selected' : '' }}>Jadwal Pengganti</option>
@@ -72,8 +71,7 @@
                    id="waktu_mulai" 
                    name="waktu_mulai" 
                    type="time" 
-                   value="{{ old('waktu_mulai') }}"
-                   required>
+                   value="{{ old('waktu_mulai') }}">
             <label for="waktu_mulai">Waktu Mulai</label>
             @error('waktu_mulai')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -86,8 +84,7 @@
                    id="waktu_selesai" 
                    name="waktu_selesai" 
                    type="time" 
-                   value="{{ old('waktu_selesai') }}"
-                   required>
+                   value="{{ old('waktu_selesai') }}">
             <label for="waktu_selesai">Waktu Selesai</label>
             @error('waktu_selesai')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -102,8 +99,7 @@
                    type="text" 
                    value="{{ old('lokasi') }}"
                    maxlength="255"
-                   placeholder="Lokasi"
-                   required>
+                   placeholder="Lokasi">
             <label for="lokasi">Lokasi</label>
             @error('lokasi')
                 <div class="invalid-feedback">{{ $message }}</div>
