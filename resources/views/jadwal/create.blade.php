@@ -8,7 +8,7 @@
 
         <!-- Tipe Jadwal -->
         <div class="form-floating mb-3">
-            <select class="form-select" id="tipe_jadwal" name="tipe_jadwal" required>
+            <select class="form-select" id="tipe_jadwal" name="tipe_jadwal">
                 <option value="REG">Latihan Reguler</option>
                 <option value="PNG">Jadwal Pengganti</option>
                 <option value="PRT">Pertandingan</option>
@@ -24,19 +24,19 @@
 
         <!-- Waktu Mulai -->
         <div class="form-floating mb-3">
-            <input class="form-control" id="waktu_mulai" name="waktu_mulai" type="time" required>
+            <input class="form-control" id="waktu_mulai" name="waktu_mulai" type="time">
             <label for="waktu_mulai">Waktu Mulai</label>
         </div>
 
         <!-- Waktu Selesai -->
         <div class="form-floating mb-3">
-            <input class="form-control" id="waktu_selesai" name="waktu_selesai" type="time" required>
+            <input class="form-control" id="waktu_selesai" name="waktu_selesai" type="time">
             <label for="waktu_selesai">Waktu Selesai</label>
         </div>
 
         <!-- Lokasi -->
         <div class="form-floating mb-3">
-            <input class="form-control" id="lokasi" name="lokasi" type="text" required>
+            <input class="form-control" id="lokasi" name="lokasi" type="text">
             <label for="lokasi">Lokasi</label>
         </div>
 
