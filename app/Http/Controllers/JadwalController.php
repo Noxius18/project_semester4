@@ -43,13 +43,27 @@ class JadwalController extends Controller
     {
         Carbon::setLocale('id');
         
-        $request->validate([
+            $request->validate([
             'tipe_jadwal' => 'required|in:REG,PNG,PRT',
             'tanggal' => 'nullable|date',
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required',
-            'lokasi' => 'required|string',
-            'tim_lawan' => 'nullable|string' 
+            'lokasi' => 'required|string|max:255',
+            'tim_lawan' => 'nullable|string|max:255' 
+        ], [
+            'tipe_jadwal.required' => 'Tipe jadwal harus dipilih.',
+            'tipe_jadwal.in' => 'Tipe jadwal tidak valid.',
+            'tanggal.required' => 'Tanggal harus diisi.',
+            'tanggal.date' => 'Format tanggal tidak valid.',
+            'tanggal.after_or_equal' => 'Tanggal tidak boleh kurang dari hari ini.',
+            'waktu_mulai.required' => 'Waktu mulai harus diisi.',
+            'waktu_mulai.date_format' => 'Format waktu mulai tidak valid (HH:MM).',
+            'waktu_selesai.required' => 'Waktu selesai harus diisi.',
+            'waktu_selesai.date_format' => 'Format waktu selesai tidak valid (HH:MM).',
+            'waktu_selesai.after' => 'Waktu selesai harus lebih besar dari waktu mulai.',
+            'lokasi.required' => 'Lokasi harus diisi.',
+            'lokasi.max' => 'Lokasi maksimal 255 karakter.',
+            'tim_lawan.max' => 'Nama tim lawan maksimal 255 karakter.'
         ]);
     
         $tipe = strtoupper(substr($request->tipe_jadwal, 0, 3));
