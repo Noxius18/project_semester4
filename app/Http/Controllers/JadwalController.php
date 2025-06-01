@@ -51,14 +51,26 @@ class JadwalController extends Controller
             'lokasi' => 'required|string',
             'tim_lawan' => 'nullable|string' 
         ]);
-
-        // ID Formatting
+    
         $tipe = strtoupper(substr($request->tipe_jadwal, 0, 3));
         $tanggalCarbon = Carbon::parse($request->tanggal);
+        
+        // Check if regular schedule exists for the given date
+        if ($tipe === 'REG') {
+            $exists = Jadwal::where('tipe_jadwal', 'REG')
+                ->whereDate('tanggal', $tanggalCarbon->toDateString())
+                ->exists();
+                
+            if ($exists) {
+                return redirect()->route('jadwal.create')
+                    ->with('error', 'Jadwal Reguler untuk tanggal ini sudah dibuat')
+                    ->withInput();
+            }
+        }
+    
         $tanggal = $tanggalCarbon->format('Ymd');
-
         $hari = $tanggalCarbon->translatedFormat('l');
-
+    
         if($tipe === 'REG') {
             $kode_unik = strtoupper(substr($hari, 0, 3));
         }
@@ -66,20 +78,20 @@ class JadwalController extends Controller
             $count = Jadwal::where('tipe_jadwal', $tipe)
             ->whereDate('tanggal', $tanggalCarbon->toDateString())
             ->count() + 1;
-
+        
             $kode_unik = str_pad($count, 3, '0', STR_PAD_LEFT);
         }
-
+    
         $jadwal_id = $tipe . $tanggal . $kode_unik;
-
+    
         $request->merge([
             'jadwal_id' => $jadwal_id,
             'tanggal' => $tanggalCarbon->toDateString(),
             'hari' => $hari
         ]);
-
+    
         Jadwal::create($request->all());
-
+    
         return redirect()->route('jadwal.index')->with('success', 'Jadwal Berhasil Ditambahkan');
     }
 
