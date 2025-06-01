@@ -70,10 +70,7 @@ class UsersController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'username' => 'required|string|max:255|min:3|unique:user,username',
-            'password' => [
-                'required',
-                Password::min(8)->mixedCase()->letters()->numbers()->symbols()
-            ],
+            'password' => 'required|min:8',
             'jenis_kelamin' => 'required|in:L,P',
             'role' => 'required|in:Admin,Pelatih,Pemain'
         ], [
