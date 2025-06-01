@@ -16,9 +16,12 @@ class AuthController extends Controller
 
     public function login(Request $request) {
         $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-        ]);
+        'username' => 'required',
+        'password' => 'required',
+    ], [
+        'username.required' => 'Username harus diisi.',
+        'password.required' => 'Password harus diisi.',
+    ]);
 
         $user = User::where('username', $request->username)->first();
 
