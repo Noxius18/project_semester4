@@ -45,7 +45,7 @@ class JadwalController extends Controller
         
             $request->validate([
             'tipe_jadwal' => 'required|in:REG,PNG,PRT',
-            'tanggal' => 'nullable|date',
+            'tanggal' => 'required|date',
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required',
             'lokasi' => 'required|string|max:255',
