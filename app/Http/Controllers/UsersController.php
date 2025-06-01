@@ -72,7 +72,6 @@ class UsersController extends Controller
             'username' => 'required|string|max:255|min:3|unique:user,username',
             'password' => [
                 'required',
-                'confirmed',
                 Password::min(8)->mixedCase()->letters()->numbers()->symbols()
             ],
             'jenis_kelamin' => 'required|in:L,P',
