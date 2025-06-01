@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Deperlas Futsal Academy - @yield('title')</title>
+    <title>Sekolah Futsal Deperlas - @yield('title')</title>
     <link rel="shortcut icon" href="{{ asset('images/icon/Logo_Deperlas_Main.ico') }}" type="image/x-icon">
     
     <!-- Styles -->
@@ -20,7 +20,7 @@
             <img src="{{ asset('images/assets/Logo_Deperlas_Main.png') }}" alt="Deperlas Futsal Academy" class="academy-logo me-3">
             <div class="academy-titles">
                 <h1 class="academy-name">DEPERLAS</h1>
-                <p class="academy-tagline">FUTSAL ACADEMY</p>
+                <p class="academy-tagline">SEKOLAH FUTSAL</p>
             </div>
         </div>
 
