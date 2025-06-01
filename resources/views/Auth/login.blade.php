@@ -43,7 +43,7 @@
                                         <i class="fas fa-user input-icon"></i>
                                         <input type="text" class="form-control" id="username" name="username" 
                                                placeholder="Username" value="{{ old('username') }}" 
-                                               autocomplete="username" required>
+                                               autocomplete="username">
                                     </div>
                                     @error('username')
                                         <div class="error-message">
@@ -58,7 +58,7 @@
                                     <div class="input-icon-wrapper @error('password') error @enderror">
                                         <i class="fas fa-lock input-icon"></i>
                                         <input type="password" class="form-control" id="password" name="password" 
-                                               placeholder="Password" autocomplete="current-password" required>
+                                               placeholder="Password" autocomplete="current-password">
                                     </div>
                                     @error('password')
                                         <div class="error-message">
