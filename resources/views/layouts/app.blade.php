@@ -26,6 +26,7 @@
 
         <!-- Kanan: Selamat datang dan Logout -->
         <div class="d-flex align-items-center gap-3">
+            <span class="text-light">Halo, {{ Auth::user()->nama }}</span>
             <form method="POST" action="{{ route('auth.logout') }}">
                 @csrf
                 <button type="submit" class="btn btn-outline-light btn-sm">
