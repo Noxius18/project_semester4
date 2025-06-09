@@ -55,7 +55,7 @@ class AuthController extends Controller
 
         Auth::logout();
         return back()->withErrors([
-            'login' => 'Akses Web hanya untuk Admin'
+            'login' => 'Akses Web hanya untuk Admin, Pemain dan Pelatih hanya di Mobile'
         ]);
     }
 
