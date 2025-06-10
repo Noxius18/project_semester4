@@ -188,6 +188,10 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
+        if($user->role->role === 'Admin') {
+            return redirect()->route('user.index')->with('error', 'User dengan role Admin tidak bisa dihapus');
+        }
+
         $user->absensi()->delete();
         $user->jadwal()->detach();
 
