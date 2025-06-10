@@ -30,13 +30,17 @@
                             <a href="{{ route('user.edit', $user->user_id) }}" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit Pengguna">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="{{ route('user.destroy', $user->user_id) }}" method="POST" class="d-inline delete-form">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-sm btn-outline-danger btn-delete" data-bs-toggle="tooltip" title="Hapus Pengguna">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
+                            @if ($user->role->role !== 'Admin')
+                                <form action="{{ route('user.destroy', $user->user_id) }}" method="POST" class="d-inline delete-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-sm btn-outline-danger btn-delete" data-bs-toggle="tooltip" title="Hapus Pengguna">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            @else
+                                <span class="text-muted">Tidak dapat dihapus</span>
+                            @endif
                         </div>
                     </td>
                 </tr>
