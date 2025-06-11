@@ -40,6 +40,7 @@
                                 </form>
                             @else
                                 <span class="text-muted">Tidak dapat dihapus</span>
+                                <p class="btn btn-sm btn-outline-muted btn-delete" data-bs-toggle="tooltip" title="Admin Tidak Bisa Dihapus">
                             @endif
                         </div>
                     </td>
